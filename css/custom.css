@@ -1,0 +1,15 @@
+.code-wrapper{
+    color: black;
+}
+.bg-primary {
+    background-color: #2C3E50 !important;
+}
+
+.on-light pre {
+    background: #001628;
+}
+
+pre[rel] {
+    padding-top: 20px;
+}
+

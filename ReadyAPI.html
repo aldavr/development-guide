@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
 
     <title>Ready API</title>
 </head>
@@ -17,14 +19,24 @@
     <div class="container-fluid">
         <h3>Script Assertion</h3>
 
-        <div class="alert alert-primary" role="alert">
-                import com.eviware.soapui.support.XmlHolder<br><br>
+        <div class="card text-white bg-primary mb-3">
+            com.eviware.soapui.support.XmlHolder<br><br>
 
-                def holder = new XmlHolder( messageExchange.responseContentAsXml )<br>
-                def node = holder.getDomNode( "//html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/form[1]/input[1]/@value" )<br><br>
-                
-                messageExchange.modelItem.testCase.testSuite.setPropertyValue("sstCookieBody", node.nodeValue)
+            def holder = new XmlHolder( messageExchange.responseContentAsXml )<br>
+            def node = holder.getDomNode( "//html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/form[1]/input[1]/@value"
+            )<br><br>
+
+            messageExchange.modelItem.testCase.testSuite.setPropertyValue("sstCookieBody", node.nodeValue)
         </div>
+      
+        
+
+        <pre rel="JavaScript" class=" language-javascript"><code class=" language-javascript">document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"keydown"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>which<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+
+
+
 
 
     </div>
