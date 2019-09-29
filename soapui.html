@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Guide - Blank Page</title>
+  <title>Guide - SoapUI</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -111,25 +111,31 @@
 
 
         <!-- Page Content -->
-        <h1>Blank Page</h1>
+        <h1>SoapUI</h1>
         <hr>
+        <h3>Getting Started With API Testing</h3>
         <p>This is a great starting point for new custom pages.</p>
-
-
 
         <div class="col-12 col-md-8 align-self-center">
           <div class="alert alert-custom" role="alert">
             <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
             <code id="myInput">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br> sed do eiusmod tempor incididunt ut labore
-              et
-              dolore magna aliqua.
+                    //Callee.groovy<br>
+                    class Callee {<br>                     
+                      String hello() {<br>
+                         return "Hello world! "<br>
+                      }<br>
+                     
+                      String hello(String who) {<br>
+                         return "Hello $who"<br>
+                      }<br>
+                     
+                      def static salute( who, log ) { log.info "Hello again $who!" }<br>
+                    }<br>
             </code>
-
-
           </div>
-
         </div>
+
       </div>
       <!-- /.container-fluid -->
 
