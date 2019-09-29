@@ -1,19 +1,37 @@
-.alert-custom{
-    background-color:#6089D5;
-    color:#fff;
-  }
-.code-wrapper{
-    color: black;
-}
-.bg-primary {
-    background-color: #2C3E50 !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Open Sans', sans-serif;
 }
 
-.on-light pre {
-    background: #001628;
+code {
+  font-family: 'Ubuntu', Medium;
+  font-size: 18px;
+  color: #e9ecef;
 }
 
-pre[rel] {
-    padding-top: 20px;
+.alert-custom {
+  background-color: #333B40;
+  color: #fff;
 }
 
+.btn-clipboard {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  z-index: 10;
+  display: block;
+  padding: .25rem .5rem;
+  color: #b3b3b3;
+  background-color: transparent;
+  border: 0;
+
+}
+.btn-clipboard:hover {
+  color: rgb(32, 32, 32);
+  background-color: #e9ecef;
+  border-radius: 5px;
+}
