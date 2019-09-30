@@ -394,3 +394,9 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+
+span {
+color: rgb(255, 203, 107);
+padding: 1px 8px;
+display: table
+}

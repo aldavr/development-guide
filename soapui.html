@@ -95,10 +95,10 @@
           <span>SQL</span></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="/soapui.html">
-            <i class="fas fa-laptop-code"></i>
-            <span>SoapUI</span></a>
-        </li>
+        <a class="nav-link" href="/soapui.html">
+          <i class="fas fa-laptop-code"></i>
+          <span>SoapUI</span></a>
+      </li>
 
     </ul>
     <!-- Sidebar End -->
@@ -109,30 +109,83 @@
         <!-- Page Content Start -->
         <h1>SoapUI</h1>
         <hr>
-        <h3>Header text goes here</h3>
-
-        <p>This is a great starting point for new custom pages.</p>
-
+        <h3>Script Assertions</h3>
+        <p>Extract header response value and set to project property</p>
         <div class="col-12 col-md-8 align-self-center">
           <div class="alert alert-custom" role="alert">
             <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
             <code id="myInput">
-              //Callee.groovy<br>
-              class Callee {<br>
-              String hello() {<br>
-              return "Hello world! "<br>
-              }<br>
-
-              String hello(String who) {<br>
-              return "Hello $who"<br>
-              }<br>
-
-              def static salute( who, log ) { log.info "Hello again $who!" }<br>
-              }<br>
+              def headerValue = messageExchange.responseHeaders["Set-Cookie"].toString() <br>
+              def valueArray = headerValue.split(";")<br>
+              def value = valueArray[0]<br>
+              value = value.substring(5, value.length())<br>
+              <br>
+              messageExchange.modelItem.testStep.testCase.testSuite.project.setPropertyValue("sstCookie", value)<br>
             </code>
           </div>
         </div>
-        
+        <p>Extract XML content value and set to project property</p>
+        <div class="col-12 col-md-8 align-self-center">
+          <div class="alert alert-custom" role="alert">
+            <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
+            <code id="myInput">
+              import com.eviware.soapui.support.XmlHolder <br>
+              <br>
+              def holder = new XmlHolder( messageExchange.responseContentAsXml )<br>
+              def node = holder.getDomNode( "//html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/form[1]/input[1]/@value" )<br>
+              <br>
+              messageExchange.modelItem.testStep.testCase.testSuite.project.setPropertyValue("sstCookieBody", node.nodeValue)
+            </code>
+          </div>
+        </div>
+
+
+
+        <h3>Get test case, test suite or project properties</h3>
+        <p>Get and Set Properties</p>
+        <div class="col-12 col-md-8 align-self-center">
+          <div class="alert alert-custom" role="alert">
+            <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
+            <code id="myInput">
+              // Get a test case property
+              <span>def testCaseProperty = messageExchange.modelItem.testStep.testCase.getPropertyValue( "MyProp" )</span>
+              // Get a test suite property
+             <span>def testSuiteProperty = messageExchange.modelItem.testStep.testCase.testSuite.getPropertyValue( "MyProp" )</span> 
+              // Get a project property
+              <span>def projectProperty = messageExchange.modelItem.testStep.testCase.testSuite.project.getPropertyValue( "MyProp" )</span>
+              // Get a global property
+              <span>def globalProperty = com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "MyProp" )</span>
+            </code>
+          </div>
+        </div>
+
+        <h3>Accessing Properties</h3>
+        <p>Get and Set Properties</p>
+        <div class="col-12 col-md-8 align-self-center">
+          <div class="alert alert-custom" role="alert">
+            <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
+            <code id="myInput">
+              // Get a test case property 
+              <span>def testCaseProperty = testRunner.testCase.getPropertyValue("MyProp")</span>
+              // Get a test suite property
+              <span>def testSuiteProperty = testRunner.testCase.testSuite.getPropertyValue( "MyProp" )</span>
+              // Get a project property
+             <span>def projectProperty = testRunner.testCase.testSuite.project.getPropertyValue( "MyProp" )</span>
+              // Get a global property
+              <span>def globalProperty = com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "MyProp" )</span>
+              <br>
+              // Set a test case property
+              <span>testRunner.testCase.setPropertyValue( "MyProp", someValue )</span>
+              // Set a test suite property
+              <span>testRunner.testCase.testSuite.setPropertyValue( "MyProp", someValue )</span>
+              // Set a project property
+              <span>testRunner.testCase.testSuite.project.setPropertyValue( "MyProp", someValue ) </span>
+              // Set a global property
+              <span>com.eviware.soapui.SoapUI.globalProperties.setPropertyValue( "MyProp", someValue )</span>
+            </code>
+          </div>
+        </div>
+
         <!-- Page Content End -->
 
       </div>
@@ -155,9 +208,15 @@
   </a>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
 
   <!-- Custom scripts -->
   <script src="js/main.js"></script>
