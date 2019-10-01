@@ -395,8 +395,17 @@ body.sidebar-toggled footer.sticky-footer {
   }
 }
 
-span {
+code span {
 color: rgb(255, 203, 107);
 padding: 1px 8px;
 display: table
+}
+
+img {
+  width: 100%;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: auto;
+  margin-bottom: 30px;
 }

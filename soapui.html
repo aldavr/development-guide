@@ -106,21 +106,74 @@
     <div id="content-wrapper">
       <div class="container-fluid">
 
-        <!-- Page Content Start -->
         <h1>SoapUI</h1>
         <hr>
-        <h3>Script Assertions</h3>
-        <p>Extract header response value and set to project property</p>
+
+        <!-- Page Content Start -->
+        <h3>Accessing Properties</h3>
+        <p>Get test case, test suite or project properties</p>
+        <div class="col-12 col-md-8 align-self-center">
+          <div class="alert alert-custom" role="alert">
+            <button type="button" class="btn-clipboard" onclick="copyToClipboard(myInput1)">Copy</button>
+            <code>
+              // Get a test case property
+              <span>def testCaseProperty = testRunner.testCase.getPropertyValue("MyProp")</span>
+              // Get a test suite property
+              <span>def testSuiteProperty = testRunner.testCase.testSuite.getPropertyValue("MyProp")</span>
+              // Get a project property
+              <span>def projectProperty = testRunner.testCase.testSuite.project.getPropertyValue(
+                "MyProp" )</span>
+              // Get a global property
+              <span>def globalProperty =
+                com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "MyProp" )</span>
+              <br>
+              // Set a test case property
+              <span>testRunner.testCase.setPropertyValue( "MyProp", someValue )</span>
+              // Set a test suite property
+              <span>testRunner.testCase.testSuite.setPropertyValue( "MyProp", someValue )</span>
+              // Set a project property
+              <span>testRunner.testCase.testSuite.project.setPropertyValue( "MyProp", someValue )
+              </span>
+              // Set a global property
+              <span>com.eviware.soapui.SoapUI.globalProperties.setPropertyValue( "MyProp",
+                someValue )</span>
+            </code>
+          </div>
+        </div>
         <div class="col-12 col-md-8 align-self-center">
           <div class="alert alert-custom" role="alert">
             <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
             <code id="myInput">
-              def headerValue = messageExchange.responseHeaders["Set-Cookie"].toString() <br>
-              def valueArray = headerValue.split(";")<br>
-              def value = valueArray[0]<br>
-              value = value.substring(5, value.length())<br>
+              // Get a test case property
+              <span>def testCaseProperty =
+                messageExchange.modelItem.testStep.testCase.getPropertyValue( "MyProp" )</span>
+              // Get a test suite property
+              <span>def testSuiteProperty =
+                messageExchange.modelItem.testStep.testCase.testSuite.getPropertyValue( "MyProp" )</span>
+              // Get a project property
+              <span>def projectProperty =
+                messageExchange.modelItem.testStep.testCase.testSuite.project.getPropertyValue( "MyProp" )</span>
+              // Get a global property
+              <span>def globalProperty =
+                com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "MyProp" )</span>
+            </code>
+          </div>
+        </div>
+        <h3>Script Assertions</h3>
+        <p>Extract header response value and set to project property</p>
+        <div class="col-12 col-md-8 align-self-center">
+          <div class="alert alert-custom" role="alert">
+            <button type="button" class="btn-clipboard" onclick="copyToClipboard(myInput2)">Copy</button>
+            <code id="myInput2">
+              // Get header response 
+              <span>def headerValue = messageExchange.responseHeaders["Set-Cookie"].toString()</span>
+              // Extract only value of the cookie 
+              <span>def valueArray = headerValue.split(";")</span>
+              <span>def value = valueArray[0]</span>
+              <span>value = value.substring(5, value.length())</span>
               <br>
-              messageExchange.modelItem.testStep.testCase.testSuite.project.setPropertyValue("sstCookie", value)<br>
+              // Set value to project property
+              <span>messageExchange.modelItem.testStep.testCase.testSuite.project.setPropertyValue("sstCookie", value)</span>
             </code>
           </div>
         </div>
@@ -129,62 +182,61 @@
           <div class="alert alert-custom" role="alert">
             <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
             <code id="myInput">
-              import com.eviware.soapui.support.XmlHolder <br>
+              <span>import com.eviware.soapui.support.XmlHolder</span>
               <br>
-              def holder = new XmlHolder( messageExchange.responseContentAsXml )<br>
-              def node = holder.getDomNode( "//html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/form[1]/input[1]/@value" )<br>
+              // Extract value from Xml respose 
+              <span>def holder = new XmlHolder( messageExchange.responseContentAsXml )</span>
+              <span>def node = holder.getDomNode( "//input[1]/@value" )</span>
               <br>
-              messageExchange.modelItem.testStep.testCase.testSuite.project.setPropertyValue("sstCookieBody", node.nodeValue)
+              // Set it to project property
+              <span>messageExchange.modelItem.testStep.testCase.testSuite.project.setPropertyValue("sstCookieBody", node.nodeValue)</span>
             </code>
           </div>
         </div>
-
-
-
-        <h3>Get test case, test suite or project properties</h3>
-        <p>Get and Set Properties</p>
+        <p>Extract value from Json response that contains specific name</p>
         <div class="col-12 col-md-8 align-self-center">
           <div class="alert alert-custom" role="alert">
             <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
             <code id="myInput">
-              // Get a test case property
-              <span>def testCaseProperty = messageExchange.modelItem.testStep.testCase.getPropertyValue( "MyProp" )</span>
-              // Get a test suite property
-             <span>def testSuiteProperty = messageExchange.modelItem.testStep.testCase.testSuite.getPropertyValue( "MyProp" )</span> 
-              // Get a project property
-              <span>def projectProperty = messageExchange.modelItem.testStep.testCase.testSuite.project.getPropertyValue( "MyProp" )</span>
-              // Get a global property
-              <span>def globalProperty = com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "MyProp" )</span>
+                // Get project property and modify
+               <span> def newRole = "NewRole_" + context.expand( '${#Project#newRoleId}' )</span>
+                // Get Id within Json response that contains Name
+                <span>def getRoleId = context.expand( '${Response#$..[?(@.Name=="' + newRole + '")].Id}' )</span>
+                <br>
+                // Set value to test case property
+                <span>messageExchange.modelItem.testStep.testCase.setPropertyValue("newRoleId", getRoleId)</span>                
             </code>
           </div>
         </div>
-
-        <h3>Accessing Properties</h3>
-        <p>Get and Set Properties</p>
+        <h3>Script Validations</h3>
         <div class="col-12 col-md-8 align-self-center">
           <div class="alert alert-custom" role="alert">
             <button type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>
             <code id="myInput">
-              // Get a test case property 
-              <span>def testCaseProperty = testRunner.testCase.getPropertyValue("MyProp")</span>
-              // Get a test suite property
-              <span>def testSuiteProperty = testRunner.testCase.testSuite.getPropertyValue( "MyProp" )</span>
-              // Get a project property
-             <span>def projectProperty = testRunner.testCase.testSuite.project.getPropertyValue( "MyProp" )</span>
-              // Get a global property
-              <span>def globalProperty = com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "MyProp" )</span>
-              <br>
-              // Set a test case property
-              <span>testRunner.testCase.setPropertyValue( "MyProp", someValue )</span>
-              // Set a test suite property
-              <span>testRunner.testCase.testSuite.setPropertyValue( "MyProp", someValue )</span>
-              // Set a project property
-              <span>testRunner.testCase.testSuite.project.setPropertyValue( "MyProp", someValue ) </span>
-              // Set a global property
-              <span>com.eviware.soapui.SoapUI.globalProperties.setPropertyValue( "MyProp", someValue )</span>
+                // Get project property
+                <span>def expectedRoleId = context.expand( '${#Project#newRoleId}' )</span>
+                // Adding string
+                <span>def roleName = ("NewRole_" + expectedRoleId)</span>
+                // Adding brackets
+                <span>def expectedRoleName = "[" + roleName + "]"</span>
+                // Extract value from Json object
+                <span>def actualRoleName = context.expand( '${VerifyNewRole#Response#$..[?(@.Name=="'+ roleName +'")].Name}' )</span>
+                <br>
+                // Assert expected value with actual value
+                <span>assert expectedRoleName == actualRoleName </span>              
             </code>
           </div>
         </div>
+
+
+
+
+
+
+
+
+
+
 
         <!-- Page Content End -->
 
